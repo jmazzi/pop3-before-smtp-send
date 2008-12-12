@@ -1,0 +1,6 @@
+= pop3-before-smtp-send
+
+This is a CLI for sending mailing via pop3 before smtp
+
+  
+  $ pop3-before-smtp-send <username> <password> <pop server> <smtp server> <to> 

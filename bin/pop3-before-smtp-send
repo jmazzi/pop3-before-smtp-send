@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'net/smtp'
+require 'net/pop'
+require 'mailfactory'
+
+abort("Usage: pop3-before-smtp-send <username> <password> <pop server> <smtp server> <to>") unless ARGV.length == 5
+
+from = ARGV[0]
+password = ARGV[1]
+pop_server = ARGV[2]
+smtp_server = ARGV[3]
+to = ARGV[4]
+
+
+Net::POP3.start(pop_server, 110,
+                from, password) do |pop|
+  if pop.mails.empty?
+    puts 'No mail.'
+  else
+    puts "Mail is there"
+  end
+end
+
+
+# SENDING
+
+#Connect to SMTP Server
+smtp = Net::SMTP.new(smtp_server, 25)
+smtp.start('yourdomain.com')
+
+#Construct Mail Message	
+mail = MailFactory.new()
+mail.to = to
+mail.from = from
+mail.subject = 'An email from Ruby'
+mail.html = "<h1>Hello From Ruby!</h1>"
+
+#Construct SMTP Message
+smtp.send_message mail.construct, mail.from, mail.to
+
+#Send this (and all other) message
+smtp.finish()
