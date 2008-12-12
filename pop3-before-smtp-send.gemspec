@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "pop3-before-smtp-send"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.date         = "2008-12-12"
   s.summary      = "This is a CLI for sending mailing via pop3 before smtp."
   s.email        = "hh@mailheist.com"
